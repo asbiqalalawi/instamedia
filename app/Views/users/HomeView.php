@@ -21,8 +21,9 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
+            <small class="navbar-brand">Hi <?= $username ?></php></small>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="display: block;">
+                <div class="navbar-nav" style="float: right;">
                     <a class="nav-link active" aria-current="page" href="/home/post"><i class="far fa-plus-square" style="font-size: x-large;"></i></a>
                     <a class="nav-link active" aria-current="page" href="/auth/logout"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
@@ -32,7 +33,7 @@
 
     <div class="container mt-3">
         <?php foreach ($post as $p) : ?>
-            <div class="card mb-2" style="width: 30rem;">
+            <div class="card mb-2" style="width: 30rem; margin: 0 auto;">
                 <div class="card-body">
                     <p class="card-text"><?= $p['user']; ?></p>
                 </div>
@@ -43,24 +44,16 @@
                         <?php if ($cek_like) : ?>
                             <form action="/home/unlike/<?= $p['id_post'] ?>" method="POST" class="d-inline">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <div class="container mt-2">
-                                    <div class="col">
-                                        <button type="submit" class="btn"><i class="fas fa-heart" style="color: red; font-size: x-large;"></i></button>
-                                        <small><?= $total_like = $LikesModel->where('id_post', $p['id_post'])->countAllResults(); ?></small>
-                                        <small>likes</small>
-                                    </div>
-                                </div>
+                                <button type="submit" class="btn"><i class="fas fa-heart" style="color: red; font-size: x-large;"></i></button>
+                                <small><?= $total_like = $LikesModel->where('id_post', $p['id_post'])->countAllResults(); ?></small>
+                                <small>likes</small>
                             </form>
                         <?php else : ?>
                             <form action="/home/like" method="POST">
                                 <input type="hidden" value="<?= $p['id_post']; ?>" id="id<?= $p['id_post']; ?>" name="id_post">
-                                <div class="container mt-2">
-                                    <div class="col">
-                                        <button type="submit" class="btn"><i class="far fa-heart" style="color: black; font-size: x-large;"></i></button>
-                                        <small><?= $total_like = $LikesModel->where('id_post', $p['id_post'])->countAllResults(); ?></small>
-                                        <small>likes</small>
-                                    </div>
-                                </div>
+                                <button type="submit" class="btn"><i class="far fa-heart" style="color: black; font-size: x-large;"></i></button>
+                                <small><?= $total_like = $LikesModel->where('id_post', $p['id_post'])->countAllResults(); ?></small>
+                                <small>likes</small>
                             </form>
                         <?php endif; ?>
                     </div>
@@ -76,8 +69,8 @@
                     <?php endforeach; ?>
                     <form action="/home/comment">
                         <input type="hidden" value="<?= $p['id_post']; ?>" id="id<?= $p['id_post']; ?>" name="id_post">
-                        <input type="text" class="form-control" id="text" name="text" placeholder="Add comment..." style="width: 400px;">
-                        <button type="submit" class="btn"><i class="far fa-paper-plane"></i></button>
+                        <span style="float: left;"><input type="text" class="form-control" id="text" name="text" placeholder="Tambah komentar..." style="width: 400px;"></span>
+                        <span style="float: right;"><button type="submit" class="btn"><i class="far fa-paper-plane"></i></button></span>
                     </form>
                 </div>
             </div>

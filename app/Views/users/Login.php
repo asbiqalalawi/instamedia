@@ -27,7 +27,6 @@
                     <div class="form-group">
                         <small id="emailHelp" class="form-text text-muted">Email</small>
                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
-                        <?= $validation->getError('email'); ?>
                     </div>
                     <div class="form-group">
                         <small id="passwordHelp" class="form-text text-muted">Password</small>

@@ -15,7 +15,8 @@ class Home extends BaseController
 			'post' => $posting->get()->getResultArray(),
 			'comment' => $this->CommentModel->get()->getResultArray(),
 			'LikesModel' => $this->LikedModel,
-			'CommentModel' => $this->CommentModel
+			'CommentModel' => $this->CommentModel,
+			'username' => session()->get("name")
 		];
 
 		if (!session()->get('login')) {
