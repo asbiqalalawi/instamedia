@@ -13,24 +13,41 @@
 </head>
 
 <body>
-    <div class="container col-4 mt-5">
-        <h3>Registration Page</h3>
-        <form action="/auth/regis" method="POST">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <div class="container bg mt-4">
+        <div class="d-flex justify-content-center mb-4">
+            <div class="row">
+                <h3>InstaMedia</h3>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Name</label>
-                <input type="name" class="form-control" id="exampleInputName1" name="name">
+        </div>
+        <div class="card bg-light mb-3 mx-auto shadow" style="max-width: 400px;">
+            <div class="card-body">
+                <form class="m-3" action="/auth/regis" method="POST">
+                    <?= (session()->getFlashData('message')); ?>
+                    <div class="text-center mb-4">
+                        <h4>Daftar Sekarang</h4>
+                        <small class="form-text text-muted">Sudah punya akun? <a href="/auth">Masuk</a></small>
+                    </div>
+                    <div class="form-group">
+                        <small id="emailHelp" class="form-text text-muted">Email</small>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+                        <?= $validation->getError('email'); ?>
+                    </div>
+                    <div class="form-group">
+                        <small id="nameHelp" class="form-text text-muted">Nama</small>
+                        <input type="name" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="emailHelp" required>
+                        <?= $validation->getError('name'); ?>
+                    </div>
+                    <div class="form-group">
+                        <small id="passwordHelp" class="form-text text-muted">Password</small>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                        <?= $validation->getError('password'); ?>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn-primary" style="padding: 5px 140px;">Daftar</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
+        </div>
     </div>
 </body>
 

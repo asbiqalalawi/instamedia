@@ -10,7 +10,9 @@ class Auth extends BaseController
             return redirect()->to('/home');
         }
 
-        return view('users/Login');
+        $data = ['validation' => \Config\Services::validation()];
+
+        return view('users/Login', $data);
     }
 
     public function login()
@@ -18,6 +20,15 @@ class Auth extends BaseController
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $user = $this->UserModel->where('email', $email)->first();
+
+        if (!$this->validate([
+            'password' => [
+                'rules' => 'min_length[6]',
+                'errors' => 'Password harus lebih dari 6 karakter.'
+            ]
+        ])) {
+            return redirect()->to('/auth')->withInput();
+        }
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
@@ -45,11 +56,28 @@ class Auth extends BaseController
             return redirect()->to('/home');
         }
 
-        return view('users/Register');
+        $data = ['validation' => \Config\Services::validation()];
+
+        return view('users/Register', $data);
     }
 
     public function regis()
     {
+        if (!$this->validate([
+            'email' => [
+                'rules' => 'is_unique[user.email]',
+                'errors' => 'Email sudah terdaftar.'
+
+            ],
+            'password' => [
+                'rules' => 'min_length[6]',
+                'errors' => 'Password harus lebih dari 6 karakter.'
+
+            ],
+        ])) {
+            return redirect()->to('/auth/register')->withInput();
+        }
+
         $this->UserModel->save([
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),

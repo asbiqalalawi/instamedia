@@ -13,13 +13,15 @@ class Home extends BaseController
 
 		$data = [
 			'post' => $posting->get()->getResultArray(),
-			'LikesModel' => $this->LikedModel
+			'comment' => $this->CommentModel->get()->getResultArray(),
+			'LikesModel' => $this->LikedModel,
+			'CommentModel' => $this->CommentModel
 		];
 
 		if (!session()->get('login')) {
 			return redirect()->to('/auth');
 		} else {
-			return view('users/Home', $data);
+			return view('users/HomeView', $data);
 		}
 	}
 
@@ -66,9 +68,24 @@ class Home extends BaseController
 	public function unlike($id_post)
 	{
 		$delete = $this->LikedModel->where('id_post', $id_post)->where('user', session()->get('name'))->first();
-		$idlike = strval($delete['id_like']);
+		// $idlike = strval($delete['id_like']);
 		$this->LikedModel->delete($delete);
 
 		return redirect()->to("/home");
+	}
+
+	public function comment()
+	{
+		$text = $this->request->getVar('text');
+		$id_post = $this->request->getVar('id_post');
+
+		$this->CommentModel->save([
+			'user' => session()->get('name'),
+			'text_comment' => $text,
+			'id_post' => $id_post,
+
+		]);
+
+		return redirect()->to('/home');
 	}
 }

@@ -12,6 +12,7 @@ use Psr\Log\LoggerInterface;
 use App\Models\UserModel;
 use App\Models\PostModel;
 use App\Models\LikedModel;
+use App\Models\CommentModel;
 
 /**
  * Class BaseController
@@ -63,5 +64,6 @@ class BaseController extends Controller
 		$this->UserModel = new UserModel();
 		$this->PostModel = new PostModel();
 		$this->LikedModel = new LikedModel();
+		$this->CommentModel = new CommentModel();
 	}
 }
