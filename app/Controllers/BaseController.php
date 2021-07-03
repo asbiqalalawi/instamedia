@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 
 use App\Models\UserModel;
 use App\Models\PostModel;
+use App\Models\LikedModel;
 
 /**
  * Class BaseController
@@ -61,5 +62,6 @@ class BaseController extends Controller
 		session();
 		$this->UserModel = new UserModel();
 		$this->PostModel = new PostModel();
+		$this->LikedModel = new LikedModel();
 	}
 }

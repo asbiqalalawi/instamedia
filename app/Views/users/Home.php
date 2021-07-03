@@ -8,7 +8,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <title>Home Page</title>
 </head>
 
@@ -35,6 +34,25 @@
                     <p class="card-text"><?= $p['user']; ?></p>
                 </div>
                 <img src="/img/<?= $p['image']; ?>" class="card-img-top" alt="...">
+                <div class="row">
+                    <div class="col-3">
+                        <?php $cek_like = $LikesModel->where('id_post', $p['id_post'])->where('user', session()->get('name'))->countAllResults(); ?>
+                        <?php if ($cek_like) : ?>
+                            <form action="/home/unlike/<?= $p['id_post'] ?>" method="POST" class="d-inline">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn-primary">UnLike</button>
+                            </form>
+                        <?php else : ?>
+                            <form action="/home/like" method="POST">
+                                <input type="hidden" value="<?= $p['id_post']; ?>" id="id<?= $p['id_post']; ?>" name="id_post">
+                                <button type="submit" class="btn">Like</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col">
+                        <p><?= $total_like = $LikesModel->where('id_post', $p['id_post'])->countAllResults(); ?></p>
+                    </div>
+                </div>
                 <div class="card-body">
                     <p class="card-text"><?= $p['description']; ?></p>
                 </div>

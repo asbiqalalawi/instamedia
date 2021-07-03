@@ -3,13 +3,17 @@
 namespace App\Controllers;
 
 use CodeIgniter\I18n\Time;
+use Kint\Parser\ToStringPlugin;
 
 class Home extends BaseController
 {
 	public function index()
 	{
+		$posting = $this->PostModel->orderBy('date', 'DESC');
+
 		$data = [
-			'post' => $this->PostModel->get()->getResultArray()
+			'post' => $posting->get()->getResultArray(),
+			'LikesModel' => $this->LikedModel
 		];
 
 		if (!session()->get('login')) {
@@ -44,5 +48,27 @@ class Home extends BaseController
 		]);
 
 		return redirect()->to('/home');
+	}
+
+	public function like()
+	{
+		$post = $this->request->getVar('id_post');
+		$user = session()->get("name");
+
+		$this->LikedModel->save([
+			'id_post' => $post,
+			'user' => $user,
+		]);
+
+		return redirect()->to("/home");
+	}
+
+	public function unlike($id_post)
+	{
+		$delete = $this->LikedModel->where('id_post', $id_post)->where('user', session()->get('name'))->first();
+		$idlike = strval($delete['id_like']);
+		$this->LikedModel->delete($delete);
+
+		return redirect()->to("/home");
 	}
 }
