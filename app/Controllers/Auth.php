@@ -54,18 +54,18 @@ class Auth extends BaseController
 
     public function regis()
     {
-        if (!$this->validate([
-            'email' => [
-                'rules' => 'is_unique[user.email]',
+        // if (!$this->validate([
+        //     'email' => [
+        //         'rules' => 'is_unique[user.email]',
 
-            ],
-            'password' => [
-                'rules' => 'min_length[6]',
+        //     ],
+        //     'password' => [
+        //         'rules' => 'min_length[6]',
 
-            ],
-        ])) {
-            return redirect()->to('/auth/register')->withInput();
-        }
+        //     ],
+        // ])) {
+        //     return redirect()->to('/auth/register')->withInput();
+        // }
 
         $this->UserModel->save([
             'name' => $this->request->getVar('name'),
