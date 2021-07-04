@@ -34,7 +34,7 @@
         <form action="/home/posting" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="formFile" class="form-label">New Post</label>
-                <input class="form-control" type="file" id="image" name="image">
+                <input class="form-control" type="file" id="image" name="image" required>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Caption</label>

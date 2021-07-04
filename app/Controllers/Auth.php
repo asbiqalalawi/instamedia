@@ -21,15 +21,6 @@ class Auth extends BaseController
         $password = $this->request->getVar('password');
         $user = $this->UserModel->where('email', $email)->first();
 
-        if (!$this->validate([
-            'password' => [
-                'rules' => 'min_length[6]',
-                'errors' => 'Password harus lebih dari 6 karakter.'
-            ]
-        ])) {
-            return redirect()->to('/auth')->withInput();
-        }
-
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $data = [
@@ -66,12 +57,10 @@ class Auth extends BaseController
         if (!$this->validate([
             'email' => [
                 'rules' => 'is_unique[user.email]',
-                'errors' => 'Email sudah terdaftar.'
 
             ],
             'password' => [
                 'rules' => 'min_length[6]',
-                'errors' => 'Password harus lebih dari 6 karakter.'
 
             ],
         ])) {
